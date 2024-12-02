@@ -1,0 +1,5 @@
+.anchor-auto {
+  & * {
+    overflow-anchor: none;
+  }
+}

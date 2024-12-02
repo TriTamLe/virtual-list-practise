@@ -1,7 +1,8 @@
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useEffect, useRef } from 'react'
-import { useGetRows } from './use-get-rows'
-import { MemorizedVirtualItem } from './virtual-item'
+
+import { useGetRows } from '../share/use-get-rows'
+import { MemorizedVirtualItem } from '../share/virtual-item'
 
 export const VirtualList = () => {
   const {
@@ -31,6 +32,11 @@ export const VirtualList = () => {
   const virtualItems = rowVirtualizer.getVirtualItems()
 
   useEffect(() => {
+    const handleFetchNext = async () => {
+      const rs = await fetchNextPage()
+      console.log(rs)
+    }
+
     const [lastItem] = [...virtualItems].reverse()
 
     if (!lastItem) {
@@ -42,10 +48,11 @@ export const VirtualList = () => {
       hasNextPage &&
       !isFetchingNextPage
     ) {
-      fetchNextPage()
+      handleFetchNext()
     }
   }, [
     hasNextPage,
+
     fetchNextPage,
     allRows.length,
     isFetchingNextPage,

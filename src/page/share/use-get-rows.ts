@@ -55,7 +55,7 @@ export const getRows = async ({
 
       if (pageNumber === 10) res([])
       res(data)
-    }, 500)
+    }, 50)
   })
 
   return response
